@@ -1,0 +1,48 @@
+list.files(path = "notes")
+getwd()
+
+list.files(recursive = TRUE)
+
+list.files(path = "Data",
+           pattern = ".csv",
+           full.names = TRUE)
+
+path <- list.files(recursive=TRUE, pattern = "wingspan_vs",
+                   ignore.case = TRUE, 
+                   full.names = TRUE)
+
+
+#4
+csv_files <- list.files (path = "Data", pattern = ".csv")
+
+#5 
+length(csv_files)
+
+#6
+df <- read.csv ("Data/wingspan_vs_mass.csv")
+
+#7
+head(df,n=5)
+
+#8, 9
+b <- list.files(recursive = TRUE,
+           path = "DATA",
+           pattern= "^b" , full.names = TRUE)
+
+readLines(b[1], n=1)
+#for loops
+
+# ^begginning , $ending
+#redo this task using for-loop
+
+#9,10
+for (i in b) {
+  data = read.csv(i)
+  first_line = data[1, ]
+  print(first_line)
+}
+
+for (i in csv_files) { data = read.csv(paste0("DATA/", i))
+first_line = data [1, ]
+print(first_line)
+}
