@@ -1,0 +1,3 @@
+project idea 
+
+my idea for right now is to do a NBA website of stats that are fun for example who plays the best on each day of the week on each team. Who has missed the most shots on each team. and compare that to each team in the NBA and do a sort of tournament type thing to see who is the best in the NBA in two categories like this. a 32 team bracket which would be 32 players for each team. Not finalized categories yet but i will come up with them the further in depth i go with this and the website will be interactive in some way. I will get a lot of my data from this website called Darko which has an abundance of NBA stats Data, and my brother works for the sacramento kings as a data analyst  and he also has access to a lot of NBA stats data. 
