@@ -1,0 +1,49 @@
+---
+title: "Assignment 9"
+output: html_document
+date: "2023-03-24"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE) 
+library(tidyverse)
+library(modelr)
+```
+
+I started to explore the dataset in this following code chunk but then realized i wasnt really going anywhere with it
+
+
+```{r}
+df <- read.csv("GradSchool_Admissions.csv")
+
+gpa1 <- glm(data=df, formula = admit ~ gpa)
+gre2 <- glm(data=df, formula = admit ~ gre)
+all3 <- glm(data = df, formula = admit~ gre * gpa * rank )
+
+gather_predictions(df,gpa1) %>%  ggplot(aes(x=gpa,y=pred,color = gpa))+ 
+  geom_smooth(method= "glm")
+
+gather_predictions(df,gre2) %>%  ggplot(aes(x=gre,y=pred,color = gpa))+ 
+  geom_smooth(method= "glm")
+
+```
+
+Then I learned from you how to do it 
+
+```{r}
+df <- df %>% mutate(admit=as.logical(admit))
+
+mod <- glm(data=df, formula = admit~ gre + gpa +rank)                    
+summary(mod)                    
+
+preds <- add_predictions(df,mod,type="response")
+
+preds %>% names()
+
+preds %>% ggplot(aes(x=gpa,y=pred,color=rank,group=rank)) + geom_smooth()
+
+preds %>% ggplot(aes(x=gre, y=pred,color=rank, group=rank)) +geom_smooth()
+```
+
+This shows the chances you have of getting admitted based on your GRE score and your rank. 
+
