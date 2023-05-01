@@ -1,0 +1,406 @@
+---
+title: "NBA Weekday Tourney"
+output: html_document
+date: "2023-05-01"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+The goal of this project is to find the best NBA Player on each day of the week Mon-Sun, Because there are a lot of Statistics that make a player good, we are going to be seeing who has the most points for each of the week than the most rebounds and then the most Asissts and for good measure we will be doing Field Goal Percentage as well. . Whoever has the best of at least two of these stats will win for each weekday. At the end of the Project I will crown a player as the official best player of each Weekday. 
+
+First we are going to Load the Libraries
+
+```{r, collapse=TRUE}
+# load necessary Libaries 
+library(rvest)
+library(dplyr)
+library(lubridate)
+library(tidyverse)
+```
+
+As a practicality I chose to take the Top 25 Players in the NBA. I tried to do a for loop to scrape it all from basketball-reference.com but it blocked my ip because it was doing too many requests at once. So this was a less efficient way of doing it but i got the top 25 players data and created a column to add the day of the week that the game was on. and another column where the player name was on as well. 
+
+```{css, echo=FALSE}
+pre {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+pre[class] {
+  max-height: 100px;
+}
+```
+```{r,collapse=TRUE}
+
+Sabonis = "https://www.basketball-reference.com/players/s/sabondo01/gamelog/2023"
+Sabonis_data <- read_html(Sabonis) %>% html_table()%>% .[[8]]
+
+Sabonis_data = Sabonis_data[, -c(6, 8)]
+
+Sabonis_data <- Sabonis_data %>% mutate(day_of_week = wday(ymd(Date),label=TRUE))
+
+#1
+
+Jokic <- "https://www.basketball-reference.com/players/j/jokicni01/gamelog/2023"
+
+Jokic_data1 <- read_html(Jokic) %>% html_table()%>% .[[8]]
+
+Jokic_data1 = Jokic_data1[, -c(6, 8)]
+
+Jokic_data <- Jokic_data1 %>% mutate(day_of_week = wday(ymd(Date),label=TRUE))
+
+#2
+Embid <- "https://www.basketball-reference.com/players/e/embiijo01/gamelog/2023"
+
+Embid_data <- read_html(Embid) %>% html_table()%>% .[[8]]
+
+Embid_data = Embid_data[, -c(6, 8)]
+
+Embid_data <- Embid_data %>% mutate(day_of_week = wday(ymd(Date),label=TRUE))
+#3
+
+Doncic <- "https://www.basketball-reference.com/players/d/doncilu01/gamelog/2023"
+
+Doncic_data <- read_html(Doncic) %>% html_table()%>% .[[8]]
+
+Doncic_data = Doncic_data[, -c(6, 8)]
+
+Doncic_data <- Doncic_data %>% mutate(day_of_week = wday(ymd(Date),label=TRUE))
+
+#4
+Butler <- "https://www.basketball-reference.com/players/b/butleji01/gamelog/2023"
+
+
+Butler_data <- read_html(Butler) %>% html_table()%>% .[[8]]
+
+Butler_data = Butler_data[, -c(6, 8)]
+
+Butler_data <- Butler_data %>% mutate(day_of_week = wday(ymd(Date),label=TRUE))
+
+#5
+Giannis <- "https://www.basketball-reference.com/players/a/antetgi01/gamelog/2023"
+
+Giannis_data <- read_html(Giannis) %>% html_table()%>% .[[8]]
+
+Giannis_data = Giannis_data[, -c(6, 8)]
+
+Giannis_data <- Giannis_data %>% mutate(day_of_week = wday(ymd(Date),label=TRUE))
+
+#6
+Curry <- "https://www.basketball-reference.com/players/c/curryst01/gamelog/2023"
+
+
+Curry_data <- read_html(Curry) %>% html_table()%>% .[[8]]
+
+Curry_data = Curry_data[, -c(6, 8)]
+
+Curry_data <- Curry_data %>% mutate(day_of_week = wday(ymd(Date),label=TRUE))
+
+#7
+Alexander <- "https://www.basketball-reference.com/players/g/gilgesh01/gamelog/2023"
+
+Alexander_data <- read_html(Alexander) %>% html_table()%>% .[[8]]
+
+Alexander_data = Alexander_data[, -c(6, 8)]
+
+Alexander_data <- Alexander_data %>% mutate(day_of_week = wday(ymd(Date),label=TRUE))
+
+#8
+Haliburton <- "https://www.basketball-reference.com/players/h/halibty01/gamelog/2023"
+
+Haliburton_data <- read_html(Haliburton) %>% html_table()%>% .[[8]]
+
+Haliburton_data = Haliburton_data[, -c(6, 8)]
+
+Haliburton_data <- Haliburton_data %>% mutate(day_of_week = wday(ymd(Date),label=TRUE))
+
+#9
+
+
+#10
+Lillard <- "https://www.basketball-reference.com/players/l/lillada01/gamelog/2023"
+
+Lillard_data <- read_html(Lillard ) %>% html_table()%>% .[[8]]
+
+Lillard_data = Lillard_data[, -c(6, 8)]
+
+Lillard_data <- Lillard_data %>% mutate(day_of_week = wday(ymd(Date),label=TRUE))
+
+
+Davis <- "https://www.basketball-reference.com/players/d/davisan02/gamelog/2023"
+
+Davis_data <- read_html(Davis) %>% html_table()%>% .[[8]]
+
+Davis_data = Doncic_data[, -c(6, 8)]
+
+Davis_data <- Doncic_data %>% mutate(day_of_week = wday(ymd(Date),label=TRUE))
+
+Mitchell <- "https://www.basketball-reference.com/players/m/mitchdo01/gamelog/2023"
+
+Mitchell_data <- read_html(Mitchell) %>% html_table()%>% .[[8]]
+
+Mitchell_data = Doncic_data[, -c(6, 8)]
+
+Mitchell_data <- Doncic_data %>% mutate(day_of_week = wday(ymd(Date),label=TRUE))
+
+James <- "https://www.basketball-reference.com/players/j/jamesle01/gamelog/2023"
+
+James_data <- read_html(James) %>% html_table()%>% .[[8]]
+
+James_data = Doncic_data[, -c(6, 8)]
+
+James_data <- Doncic_data %>% mutate(day_of_week = wday(ymd(Date),label=TRUE))
+
+Leonard <- "https://www.basketball-reference.com/players/l/leonaka01/gamelog/2023"
+
+Leonard_data <- read_html(Leonard) %>% html_table()%>% .[[8]]
+
+Leonard_data = Doncic_data[, -c(6, 8)]
+
+Leonard_data <- Doncic_data %>% mutate(day_of_week = wday(ymd(Date),label=TRUE))
+
+Morant <- "https://www.basketball-reference.com/players/m/moranja01/gamelog/2023"
+
+Morant_data <- read_html(Morant) %>% html_table()%>% .[[8]]
+
+Morant_data = Morant_data[, -c(6, 8)]
+
+Morant_data <- Morant_data %>% mutate(day_of_week = wday(ymd(Date),label=TRUE))
+
+Tatum <- "https://www.basketball-reference.com/players/t/tatumja01/gamelog/2023"
+
+Tatum_data <- read_html(Tatum) %>% html_table()%>% .[[8]]
+
+Tatum_data = Tatum_data[, -c(6, 8)]
+
+Tatum_data <- Tatum_data %>% mutate(day_of_week = wday(ymd(Date),label=TRUE))
+
+Harden <- "https://www.basketball-reference.com/players/h/hardeja01/gamelog/2023"
+
+Harden_data <- read_html(Harden) %>% html_table()%>% .[[8]]
+
+Harden_data = Harden_data[, -c(6, 8)]
+
+Harden_data <- Harden_data %>% mutate(day_of_week = wday(ymd(Date),label=TRUE))
+
+Porzingis <- "https://www.basketball-reference.com/players/p/porzikr01/gamelog/2023"
+
+Porzingis_data <- read_html(Porzingis) %>% html_table()%>% .[[8]]
+
+Porzingis_data = Porzingis_data[, -c(6, 8)]
+
+Porzingis_data <- Porzingis_data %>% mutate(day_of_week = wday(ymd(Date),label=TRUE))
+
+Booker <- "https://www.basketball-reference.com/players/b/bookede01/gamelog/2023"
+
+Booker_data <- read_html(Booker) %>% html_table()%>% .[[8]]
+
+Booker_data = Booker_data[, -c(6, 8)]
+
+Booker_data <- Booker_data %>% mutate(day_of_week = wday(ymd(Date),label=TRUE))
+
+
+
+Brunson <- "https://www.basketball-reference.com/players/b/brunsja01/gamelog/2023"
+
+Brunson_data <- read_html(Brunson) %>% html_table()%>% .[[8]]
+
+Brunson_data = Brunson_data[, -c(6, 8)]
+
+Brunson_data <-Brunson_data %>% mutate(day_of_week = wday(ymd(Date),label=TRUE))
+
+Markannen <- "https://www.basketball-reference.com/players/m/markkla01/gamelog/2023"
+
+Markannen_data <- read_html(Markannen) %>% html_table()%>% .[[8]]
+
+Markannen_data = Markannen_data[, -c(6, 8)]
+
+Markannen_data <- Markannen_data %>% mutate(day_of_week = wday(ymd(Date),label=TRUE))
+
+
+Randle <- "https://www.basketball-reference.com/players/r/randlju01/gamelog/2023#all_pgl_basic"
+
+Randle_data <- read_html(Randle) %>% html_table()%>% .[[8]]
+
+Randle_data = Randle_data[, -c(6, 8)]
+
+Randle_data <- Randle_data %>% mutate(day_of_week = wday(ymd(Date),label=TRUE))
+
+
+Bane <- "https://www.basketball-reference.com/players/b/banede01/gamelog/2023"
+
+Bane_data <- read_html(Bane) %>% html_table()%>% .[[8]]
+
+Bane_data = Bane_data[, -c(6, 8)]
+
+Bane_data <- Bane_data %>% mutate(day_of_week = wday(ymd(Date),label=TRUE))
+
+```
+
+Next i wanted to remove all the non dataframes out of the Global Environment so i could make a list of Dataframes. 
+
+```{r, collapse=TRUE}
+obj_names <- ls()
+
+# Remove all non-data frame objects from the global environment
+for (name in obj_names) {
+  if (!is.data.frame(get(name))) {
+    rm(list = name)
+  }
+}
+```
+
+Then i wanted to put all the players data into one and then filter out the remaining column names after getting mashed together. 
+```{r, collapse=TRUE}
+player_names <- bind_rows(
+  Alexander_data %>% mutate(player = "Alexander"),
+  Bane_data %>% mutate(player = "Bane"),
+  Booker_data %>% mutate(player = "Booker"),
+  Brunson_data %>% mutate(player = "Brunson"),
+  Butler_data %>% mutate(player = "Butler"),
+  Curry_data %>% mutate(player = "Curry"),
+  Davis_data %>% mutate(player = "Davis"),
+  Doncic_data %>% mutate(player = "Doncic"),
+  Embid_data %>% mutate(player = "Embid"),
+  Giannis_data %>% mutate(player = "Giannis"),
+  Haliburton_data %>% mutate(player = "Haliburton"),
+  Harden_data %>% mutate(player = "Harden"),
+  James_data %>% mutate(player = "James"),
+  Jokic_data %>% mutate(player = "Jokic"),
+  Leonard_data %>% mutate(player = "Leonard"),
+  Lillard_data %>% mutate(player = "Lillard"),
+  Markannen_data %>% mutate(player = "Markannen"),
+  Mitchell_data %>% mutate(player = "Mitchell"),
+  Morant_data %>% mutate(player = "Morant"),
+  Porzingis_data %>% mutate(player = "Porzingis"),
+  Randle_data %>% mutate(player = "Randle"),
+  Sabonis_data %>% mutate(player = "Sabonis"),
+  Tatum_data %>% mutate(player = "Tatum")
+)
+
+player_names <- player_names %>% filter(Rk != "Rk")
+
+player_names <- player_names %>% mutate(PTS=as.numeric(PTS)) %>% drop_na()
+```
+
+After that this is what the data frame looks like 
+
+<div style="height: 200px; overflow-y: scroll;">
+```{r, echo=TRUE}
+library(formattable)
+formattable(player_names)
+
+```
+</div>
+
+
+Now first we are going to plot out who has the most rebounds for each day of the week. To crown a winner for each day, but we have to make all the columns we need to be as.numeric first. And then plot out using a bar graph to show the clear winners for each day
+
+
+```{r,fig.width=12, fig.height=10,collapse=TRUE}
+
+player_names <- player_names %>% mutate(PTS=as.numeric(PTS)) %>% drop_na()
+player_names <- player_names %>% mutate(DRB=as.numeric(DRB)) %>% drop_na()
+player_names <- player_names %>% mutate(AST=as.numeric(AST)) %>% drop_na()
+player_names <- player_names %>% mutate(TRB=as.numeric(TRB)) %>% drop_na()
+
+Avg_reb <- player_names %>% 
+  group_by(player, day_of_week) %>% 
+  summarize(Avg_Trb = mean(TRB), .groups = "drop") %>%
+  ungroup() %>%
+  arrange(desc(Avg_Trb))
+
+highest_reb <- Avg_reb %>% 
+  group_by(day_of_week) %>% 
+  slice_max(order_by = Avg_Trb)
+
+Avg_reb %>% ggplot(aes(x=player, y=Avg_Trb)) +facet_wrap(~day_of_week)+geom_col()+theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+geom_text(data = highest_reb , aes(label = player, x = player, y = Avg_Trb))
+```
+
+Great now we have the winners for each day of the week for rebounds which is a really important statistic now lets look at arguably the most important, the player that scores the most for each weekday. This will also be the Tiebreaker for the crowned player of each day if they each have 2 stats that are the highest or there isnt anyone that has 2 stats that are the highest on that day. 
+
+```{r,fig.width=14, fig.height=10,collapse=TRUE}
+Avg_pts <- player_names %>% 
+  group_by(player, day_of_week) %>% 
+  summarize(Avg_Pts = mean(PTS), .groups = "drop") %>%
+  ungroup() %>%
+  arrange(desc(Avg_Pts))
+
+highest_pts <- Avg_pts %>% 
+  group_by(day_of_week) %>% 
+  slice_max(order_by = Avg_Pts)
+
+Avg_pts %>% ggplot(aes(x=player, y=Avg_Pts)) +facet_wrap(~day_of_week)+geom_col()+
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
+  geom_text(data = highest_pts , aes(label = player, x = player, y = Avg_Pts))
+```
+
+Ok this one Gets a little bit crazier because on Monday there is 5 players that are tied and because it is a little hard to read those players are Anthony Davis, Luka Doncic, Lebron James, Kawhai Leonard and Donovan Mitchell they all win the crown for points on Monday. So far Giannis has won Saturday in Rebounds and Points. So it is safe to say he will win the Saturday crown. 
+
+Now we are on to another really important stat that is very important for team play and winning. Assists per game is really imporant to the game of Basketball so it will be one of the 3 stats that I use to find the winner of each day. 
+
+```{r,fig.width=14, fig.height=10,collapse=TRUE}
+Avg_ast <- player_names %>% 
+  group_by(player, day_of_week) %>% 
+  summarize(Avg_Ast = mean(AST), .groups = "drop") %>%
+  ungroup() %>%
+  arrange(desc(Avg_Ast))
+
+highest_ast <- Avg_ast %>% 
+  group_by(day_of_week) %>% 
+  slice_max(order_by = Avg_Ast)
+
+Avg_ast %>% ggplot(aes(x=player, y=Avg_Ast)) +facet_wrap(~day_of_week)+geom_col()+
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
+  geom_text(data = highest_ast , aes(label = player, x = player, y = Avg_Ast))
+```
+WOW Haliburton and Harden destroy in this Category that makes it pretty hard to Crown a winner after these three stats so to have even more proof of a winner lets do field goal percentage as the last stat to see if that could break the tie breaker. First i have to change the name of FG% to be FGP and as numeric. 
+```{r,r,fig.width=14, fig.height=10,collapse=TRUE}
+player_names$FGP <- player_names$`FG%`
+player_names <- player_names %>% mutate(FGP=as.numeric(FGP)) %>% drop_na()
+
+Field_perc <- player_names %>% 
+  group_by(player, day_of_week) %>% 
+  summarize(FG_percen = mean(FGP), .groups = "drop") %>%
+  ungroup() %>%
+  arrange(desc(FG_percen))
+
+highest_FGP <- Field_perc %>% 
+  group_by(day_of_week) %>% 
+  slice_max(order_by = FG_percen)
+
+Field_perc %>% ggplot(aes(x=player, y=FG_percen)) +facet_wrap(~day_of_week)+geom_col()+
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
+  geom_text(data = highest_FGP , aes(label = player, x = player, y = FG_percen))
+
+```
+
+
+Alright and the Results are in! We are ready to crown each player as officially being the best player of any day Mon-Sun. As the winner of sunday with first place in the points category and second place in the assists and field goal percentage and just by a slim margin barely beating Davonte Sabonis He gets two wins on Friday for FIeld goal percentage and Pts. we have......
+
+![**Joel Embiid the winner of Sunday and Friday !**](JoelEmbiid.jpeg)
+
+He was top of the Charts for a lot of the days of the week for points. Now for Monday, this one was especially difficult because there were so many ties but calculating the first second and third place of each, This player won for Field goal percentage by a long shot on Monday, second place in Rebounds and 3rd place in Assists. The winner of **Monday** and Actually **Tuesday** as well is ......
+
+
+ ![**Nikola Jokic as the winner of Monday, and Tuesday!**](Nikola.Jokic.jpeg)
+ 
+ 
+ Now for Wednesday we have another Double Winner because he has two wins for Saturday in points and rebounds and on Wednesday is winning by a huge margin on rebounds and second in pts and Field goal percentage we have the crown for **Wednesday** and **Saturday**.....
+ 
+ 
+ ![**Giannis antetokounmpo as the double winner for Saturday and Wednesday!**](Greek.freak.jpeg)
+
+
+Now for Thursday We have our Final winner being on Thursday He has the win for Field Goal percentage and rebounds on this day and is one of my favorite players actually. For **Thursday** the crown goes to ......
+
+![**Devonta Sabonis akes the Crown for thursday!**](Devonta.sabonis.jpeg)
+
+
+
+Now that we have the Crown winners for each day of the week I think I can finally rest knowing who I would trust on each day if I was a coach or something....
+
+
+**Final Project By Andrew Knowlton**
